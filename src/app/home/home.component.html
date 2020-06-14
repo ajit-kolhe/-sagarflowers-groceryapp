@@ -1,0 +1,77 @@
+<mat-toolbar color="primary">
+    <a [routerLink]="['/']" class="aClass">
+        <h1>Online Store</h1>
+      </a>
+
+      <button mat-button [matMenuTriggerFor]="menu">{{category[0]}}</button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let item of category" mat-menu-item (click)="addCategory(item)">
+          {{ item }}
+        </button>
+      </mat-menu>
+
+
+    
+    <!-- <mat-menu *ngFor="let cat of category" #menu="matMenu">
+        <button mat-menu-item (click)="addCategory(cat)">{{cat}}</button>
+    </mat-menu>-->
+
+   <!-- <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="addCategory(category[1])">{{category[1]}}</button>
+      <button mat-menu-item (click)="addCategory(category[2])">{{category[2]}}</button>
+    </mat-menu>-->
+    
+    <a routerLink="/about" class="fancy-button">
+        <i class="material-icons">shopping_cart</i>Checkout {{this.cartService.getItemsLength()}}
+      </a>
+  
+  </mat-toolbar>
+  
+
+
+<div style="padding: 13px;">
+    <mat-spinner *ngIf="collection.length === 0"></mat-spinner>
+
+    <mat-card *ngFor="let product of collection" style="margin-top:10px;" class = "card-container">
+
+        <mat-card-content class="card-container1" >
+            <img class = "img"  src="{{product.IMAGE_PATH}}" />
+        </mat-card-content>
+        <mat-card-header class="mat-card-header">
+                <mat-card-title>{{product.NAME}}</mat-card-title>
+                <mat-card-subtitle>{{product.PRICE}} Rs/ {{product.quantity}}
+                        <p>
+                                {{product.DESC}}
+                            </p>
+                </mat-card-subtitle>
+            </mat-card-header>
+
+        <mat-card-actions>
+
+        <div *ngIf="product.quantity>0; then thenBlock; else elseBlock"> </div>
+        <ng-template #thenBlock>
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="removeToCart(product)">
+                <mat-icon color="primary">remove_circle</mat-icon>
+            </button>
+            {{product.quantity}}
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="addToCart(product)">
+                    <mat-icon color="primary">add_circle</mat-icon>
+            </button>                      
+            <button mat-raised-button color="primary" (click)="addToCart(product)"> Add more </button> 
+        </ng-template>
+        <ng-template #elseBlock>
+            <button mat-raised-button color="primary" (click)="addToCart(product)"> Add to Cart</button>
+        </ng-template>
+        
+    </mat-card-actions>
+    </mat-card>
+    
+</div>
+
+ <div>
+        <button (click) ="firstPage()" mat-button> First</button>
+        <button (click) ="previousPage()" mat-button> Previous</button>
+        <button (click) ="nextPage()" mat-button> Next</button>
+        <button (click) ="lastPage()" mat-button> Last</button>
+    </div>
