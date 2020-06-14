@@ -5,8 +5,14 @@ a{
 
   .example-container .mat-form-field + .mat-form-field {
     margin-left: 8px;
+    width: 30%;
   }
+
   
+  .mat-form-field{
+    width: 20%;
+}
+
   p{
     text-align: center;
   }
